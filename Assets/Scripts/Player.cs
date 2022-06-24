@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
     public float MoveSpeed;
+    public int EdgeDistance;
     private Vector3 _targetPos;
 
     private void Start()
@@ -19,6 +20,10 @@ public class Player : MonoBehaviour
     }
     public void Move(Vector3 moveDirection)
     {
+        if (Mathf.Abs(_targetPos.x + moveDirection.x) > EdgeDistance)
+        {
+            return;
+        }
         _targetPos += moveDirection;
     }
 }
