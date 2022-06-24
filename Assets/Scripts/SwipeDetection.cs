@@ -17,15 +17,29 @@ public class SwipeDetection : MonoBehaviour
             _fingerDown = true;
         }
 
-            if (_fingerDown)
+        if (_fingerDown)
+        {
+            if (Input.touches[0].position.y >= _startPos.y + PixelDistToDetect)
             {
-                if (Input.touches[0].position.y >= _startPos.y + PixelDistToDetect)
-                {
-                    _fingerDown = false;
-                    Debug.Log("Swipe Up");
-                }
+                _fingerDown = false;
+                Player.Move(Vector3.up);
             }
-        
+            else if (Input.touches[0].position.x <= _startPos.x - PixelDistToDetect)
+            {
+                _fingerDown = false;
+                Player.Move(Vector3.left);
+            }
+            else if(Input.touches[0].position.x >= _startPos.x + PixelDistToDetect)
+            {
+                _fingerDown = false;
+                Player.Move(Vector3.right);
+            }
+            else if (Input.touches[0].position.y <= _startPos.y - PixelDistToDetect)
+            {
+                _fingerDown = false;
+                Player.Move(Vector3.down);
+            }
+        }
 
         if (_fingerDown && Input.touchCount > 0 && Input.touches[0].phase == TouchPhase.Ended)
         {
@@ -42,12 +56,27 @@ public class SwipeDetection : MonoBehaviour
 
             if (_fingerDown)
             {
-                if (Input.mousePosition.y >= _startPos.y + PixelDistToDetect)
-                {
-                    _fingerDown = false;
-                    Debug.Log("Swipe Up");
-                }
+            if (Input.mousePosition.y >= _startPos.y + PixelDistToDetect)
+            {
+                _fingerDown = false;
+                Player.Move(Vector3.up);
             }
+            else if (Input.mousePosition.y <= _startPos.y - PixelDistToDetect)
+            {
+                _fingerDown = false;
+                Player.Move(Vector3.down);
+            }
+            else if (Input.mousePosition.x >= _startPos.x + PixelDistToDetect)
+            {
+                _fingerDown = false;
+                Player.Move(Vector3.right);
+            }
+            if (Input.mousePosition.x <= _startPos.x - PixelDistToDetect)
+            {
+                _fingerDown = false;
+                Player.Move(Vector3.left);
+            }
+        }
 
             if(_fingerDown && Input.GetMouseButtonUp(0))
             {
