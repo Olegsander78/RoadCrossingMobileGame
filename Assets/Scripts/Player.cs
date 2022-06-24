@@ -7,6 +7,7 @@ public class Player : MonoBehaviour
     public float MoveSpeed;
     public int EdgeDistance;
     private Vector3 _targetPos;
+    public int Score;
 
     private void Start()
     {
@@ -25,5 +26,21 @@ public class Player : MonoBehaviour
             return;
         }
         _targetPos += moveDirection;
+    }
+
+    public void AddScore(int amount)
+    {
+        Score += amount;
+        UI.Instance.UpdateScoreText(Score);
+    }
+
+    public void GameOver()
+    {
+        UI.Instance.SetEndScreen(false);
+    }
+
+    public void Win()
+    {
+        UI.Instance.SetEndScreen(true);
     }
 }
